@@ -5,6 +5,44 @@ const jwt = require("jsonwebtoken");
 const { AdminUserModel } = require("../model/admin.model");
 const adminRouter = express.Router()
 
+
+adminRouter.post("/register", async (req, res) => {
+  const { name, email, phone, password } = req.body;
+
+  const PasswordChecking =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  if (!PasswordChecking.test(password)) {
+    return res.status(400).json({ msg: "Invalid password format! Password format Should contain atleast one uppercase character,one number ,special character and length greater then 8",});
+  }
+
+  try {
+    const existingUserEmail = await AdminUserModel.findOne({ email });
+    if (existingUserEmail) {
+      return res.status(400).json({ msg: "Admin Already Exists" });
+    }
+    bcrypt.hash(password, 5, async (err, hash) => {
+      if (err) {
+        res.status(400).json({ error: err.messag });
+      } else {
+        const adminuser = new AdminUserModel({
+          name,
+          email,
+          phone,
+          password: hash,
+        });
+        await adminuser.save();
+      }
+    });
+    res
+      .status(200)
+      .json({
+        msg: "The new Admin has been registered",
+        registeredAdmin: req.body,
+      });
+  } catch (err) {
+    res.status(400).json({ error: err.messag });
+  }
+});
+
 adminRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
   

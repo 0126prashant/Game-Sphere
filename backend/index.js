@@ -9,7 +9,7 @@ const app=express();
 // app.use(cors());   install later
 app.use(express.json());
 
-app.use("/admins",adminRouter)
+app.use("/admin",adminRouter)
 
 app.listen(8080,async()=>{
     try{
