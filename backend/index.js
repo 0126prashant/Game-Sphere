@@ -11,7 +11,7 @@ const app=express();
 app.use(express.json());
 app.use("/user",userRoute);
 
-app.use("/admins",adminRouter)
+app.use("/admin",adminRouter)
 
 app.listen(8080,async()=>{
     try{
