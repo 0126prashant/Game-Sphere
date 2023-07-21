@@ -1,5 +1,6 @@
 
-import './App.css';
+import AdminNavbar from './pages/Admin/AdminNavbar';
+import ProductList from './pages/Admin/Productlist';
 import AllRoutes from './components/AllRoutes';
 
 
@@ -8,6 +9,8 @@ import AllRoutes from './components/AllRoutes';
 function App() {
   return (
     <div className="App">
+    <AdminNavbar/>
+    <ProductList/>
       <AllRoutes/>
     </div>
   );
