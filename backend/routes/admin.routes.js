@@ -6,6 +6,29 @@ const { AdminUserModel } = require("../model/admin.model");
 const adminRouter = express.Router()
 
 
+// ---------Get the data while admin login----------------------->>>>
+
+adminRouter.get("/",async(req,res)=>{
+  try {
+    // const data = await 
+    
+  } catch (error) {
+    res.status(400).json({ error: err.messag });
+  }
+})
+
+// --------------------If admin wants to update the data----------->>>>
+adminRouter.post("/updatedata:id",async(req,res)=>{
+  try {
+    // const data = await 
+    
+  } catch (error) {
+    res.status(400).json({ error: err.messag });
+  }
+})
+
+
+
 adminRouter.post("/register", async (req, res) => {
   const { name, email, phone, password } = req.body;
 

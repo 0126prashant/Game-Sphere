@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-import Admin from './pages/Admin';
+
+// import './App.css';
+import AdminNavbar from './pages/Admin/AdminNavbar';
+import ProductList from './pages/Admin/Productlist';
+
+
 
 function App() {
   return (
     <div className="App">
-      <Admin/>
+    <AdminNavbar/>
+    <ProductList/>
     </div>
   );
 }
