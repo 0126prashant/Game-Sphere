@@ -26,6 +26,7 @@ switch(action.type){
         isError:true
      }
     }
+    default : return state
 }
 }
 
