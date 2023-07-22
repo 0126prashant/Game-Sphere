@@ -1,5 +1,4 @@
 const mongoose=require("mongoose");
-
 //Register User Schema
 const userSchema=mongoose.Schema({
     name:{
@@ -24,6 +23,9 @@ const userSchema=mongoose.Schema({
         required:[true,"password is required"]
     },
     isBlocked: { type: Boolean, default: false },
+
+    }
+
 },{timestamps:true});
 
 //Register User Model

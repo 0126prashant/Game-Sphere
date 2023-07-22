@@ -1,18 +1,16 @@
 
+
+
+import './App.css';
+import AdminNavbar from './pages/Admin/AdminNavbar';
+import ProductList from './pages/Admin/Productlist';
 import AllRoutes from './components/AllRoutes';
-import { Admin } from './pages/Admin/Admin';
-
-
-
-
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <div className="App">
-    {/* <AdminNavbar/>
-    <ProductList/>
-    <EditProduct/> */}
-      <Admin/>
-      <AllRoutes/>
+      <Navbar/>
+      <AllRoutes />
     </div>
   );
 }
