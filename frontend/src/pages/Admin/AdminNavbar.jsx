@@ -1,28 +1,60 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Flex, Box, Text, Button } from '@chakra-ui/react';
+// AdminNavbar
 
+import { useRef } from "react";
+import { FaBars, FaTimes ,Flex} from "react-icons/fa";
+import "./AdminStyles/Adminnavbar.css";
+import { Link, useNavigate } from "react-router-dom";
+import adminlogo from "../../utilites/img/adminlogo.png"
 const AdminNavbar = () => {
+  const navRef = useRef();
+  const navigate = useNavigate();
+  const showNavbar = () => {
+    navRef.current.classList.toggle("kd_responsive_nav");
+  };
+
+  const handleClick = () => {
+    localStorage.clear();
+    navigate("/adminsignin");
+  };
   return (
-    <Flex align="center" justify="space-between" bgColor="gray.100" p="4" boxShadow="sm">
-      <Box>
-        <Text fontSize="lg" fontWeight="bold">
-          Admin Panel
-        </Text>
-      </Box>
-      <Box>
-        <Link to="/add-product">
-          <Button colorScheme="blue" mr="2">
+    <header>
+      <img
+        className="kd-logo"
+        src={adminlogo}
+        alt="Logo"
+      />
+      <nav ref={navRef}>
+        <li>
+          <Link to={"/adminlistproduct"} className="kd-link">
+            Product List
+          </Link>
+        </li>
+        <li>
+          <Link to={"/addData"} className="kd-link">
             Add Product
-          </Button>
-        </Link>
-        <Link to="/delete-product">
-          <Button colorScheme="red">
-            Delete Product
-          </Button>
-        </Link>
-      </Box>
-    </Flex>
+          </Link>
+        </li>
+        <li>
+          <Link to={"/userlist"} className="kd-link">
+            User List
+          </Link>
+        </li>
+        {/* <li>
+          <Link to={"/adminlist"} className="kd-link">
+            Admin List
+          </Link>
+        </li> */}
+        <button className="kd-logout" onClick={handleClick}>
+          Log-out
+        </button>
+        <button className="kd-nav-btn kd-nav-close-btn" onClick={showNavbar}>
+          <FaTimes />
+        </button>
+      </nav>
+      <button className="kd-nav-btn" onClick={showNavbar}>
+        <FaBars />
+      </button>
+    </header>
   );
 };
 

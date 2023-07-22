@@ -17,7 +17,15 @@ const userSchema=mongoose.Schema({
     password:{
         type:String,
         required:[true,"password is required"]
+    },
+    confirm_password:{
+        type:String,
+        required:[true,"password is required"]
+    },
+    isBlocked: { type: Boolean, default: false },
+
     }
+
 },{timestamps:true});
 
 //Register User Model
