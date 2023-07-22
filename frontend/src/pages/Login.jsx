@@ -1,12 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faUser,faLock,faMobile,faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle,faFacebookF,faTwitter} from "@fortawesome/free-brands-svg-icons";
 import logo_login from "../utilites/img/logo_login.svg";
 import {Link} from "react-router-dom"
 import styled from "styled-components";
 
+import Swal from "sweetalert2";
 
 const Login = () => {
+
+
+    const handleLogin=(e)=>{
+        e.preventDefault();
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: 'Login successfull',
+            showConfirmButton: false,
+            timer: 2000,
+        
+          })
+    }
+
+
+
+
+
+
+
   return (
     <DIV>
        <div className="container">
@@ -27,7 +48,7 @@ const Login = () => {
             <input type="password" placeholder='Password'/>
            </div>
 
-          <input type="submit" value="Login" className='btn'/>
+          <input onClick={handleLogin} type="submit" value="Login" className='btn'/>
 
           <p className='social-text'>Or Sign in with Social Media</p>
 
@@ -53,9 +74,9 @@ const Login = () => {
 <div className='panel right-panel'>
 <div className='content'>
 <h3> New User ?</h3>
-<p>lorem ipsum dolor sit amet consectetur adipiscing elit. Mins impedit quidem quibusdam?</p>
+<p>Sign up now to personalize your gaming profile, unlock custom skins and avatars, and make your mark in the gaming world.</p>
 
- <button className='btn transparent' id="signIpBtn">Sign Up</button>
+ <button  className='btn transparent' id="signIpBtn">Sign Up</button>
 
 </div>
 <img className="image" src={logo_login} alt="logo_login"/>
@@ -91,7 +112,7 @@ input{
     width:2000px;
     height:2000px;
     border-radius: 50%;
-    background:linear-gradient(-45deg, #F4511E, #FF5722);
+    background:linear-gradient(-45deg, #FF5722 , #F4511E);
     top:-10%;
     right:40%;
     transform: translateY(-50%);
@@ -147,7 +168,7 @@ form.sign-up-form{
 }
 
 .input-field{
-    max-width: 380px;
+    max-width: 500px;
     width:100%;
     height:55px;
     background-color: #f0f0f0;
@@ -301,11 +322,98 @@ form.sign-up-form{
 }
 
 .image{
-width:100%;
+width:90%;
+margin-bottom: 50px;
 transition:0.9s 0.6s ease-in-out;
 }
 
 
+/* Responsiveness */
+
+@media (max-width:870px){
+
+    .container{
+        min-height: 800px;
+        height:100vh;
+    }
+    .container::before{
+       width:1500px;
+       height:1300px;
+       left:30%;
+       bottom:68%;
+       transform: translateX(-50%);
+       right:initial;
+       top:initial;
+    }
+
+    .signIn-signUp{
+        width:100%;
+        left:50%;
+        top:80%;
+        transform: translate(-50%,-100%);
+    }
+
+    .panel-container{
+        grid-template-columns: 1 fr;
+        grid-template-rows: 1fr 2fr;
+    }
+
+    .panel{
+        display: flex;
+        margin-left:25%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding:40px 8%;
+        
+    }
+
+    .panel .content{
+        padding-right:15%;
+
+    }
+
+    .panel h3{
+        font-size: 19px;
+    }
+    .panel p{
+        font-size:0.7rem;
+        padding:0.5rem 0 ;
+        
+    }
+
+    .btn.transparent{
+        width: 110px;
+        height:35px;
+        font-size: 0.7rem;
+        margin-top:10px;
+    }
+
+    .image{
+        width:200px;
+    }
+
+    .input-field input{
+    margin-left:16px;
+    line-height: 1;
+    font-weight: 550;
+    font-size:18px;
+    color:#757575
+    
+}
+
+.faUser {
+    margin-top:15px;
+    margin-left:10px;
+    color:#acacac;
+    font-size: 20px;
+}
+
+.input-field{
+    width:290px;
+}
+
+}
 
 `
 
