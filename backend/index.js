@@ -12,8 +12,10 @@ require("dotenv").config();
 
 const app=express();
 
+
 // app.use(cors());   install later
-app.use(cors());
+
+app.use(cors()); 
 app.use(express.json());
 app.use("/user",userRoute);
 
