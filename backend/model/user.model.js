@@ -1,5 +1,4 @@
 const mongoose=require("mongoose");
-
 //Register User Schema
 const userSchema=mongoose.Schema({
     name:{
@@ -18,11 +17,7 @@ const userSchema=mongoose.Schema({
     password:{
         type:String,
         required:[true,"password is required"]
-    },
-    confirm_password:{
-        type:String,
-        required:[true,"password is required"]
-    },
+    }
 },{timestamps:true});
 
 //Register User Model

@@ -1,5 +1,6 @@
 const express=require("express");
 const { connection } = require("./db");
+require("dotenv").config();
 const cors=require("cors");
 const { adminRouter } = require("./routes/admin.routes");
 
@@ -11,6 +12,9 @@ require("dotenv").config();
 
 const app=express();
 
+
+// app.use(cors());   install later
+
 app.use(cors()); 
 app.use(express.json());
 app.use("/user",userRoute);
@@ -19,10 +23,12 @@ app.use("/user",userRoute);
 app.use("/admins",adminRouter)
 app.use(productRoute);
 
-app.listen(8080,async()=>{
+app.listen(process.env.port,async()=>{
     try{
         await connection;
-        console.log("Server is running and db is connected")
+        // console.log("Server is running and db is connected");
+        console.log(`server is running at ${process.env.port}`);
+        console.log("database is connected");
     }catch(err){
         console.log(err)
     }
