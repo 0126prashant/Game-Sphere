@@ -1,7 +1,6 @@
 
-import AdminNavbar from './pages/Admin/AdminNavbar';
-import ProductList from './pages/Admin/Productlist';
 import AllRoutes from './components/AllRoutes';
+import { Admin } from './pages/Admin/Admin';
 
 
 
@@ -9,8 +8,10 @@ import AllRoutes from './components/AllRoutes';
 function App() {
   return (
     <div className="App">
-    <AdminNavbar/>
+    {/* <AdminNavbar/>
     <ProductList/>
+    <EditProduct/> */}
+      <Admin/>
       <AllRoutes/>
     </div>
   );

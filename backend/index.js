@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/user",userRoute);
 
 
-app.use("/admins",adminRouter)
+app.use("/admin",adminRouter)
 app.use(productRoute);
 
 app.listen(8080,async()=>{

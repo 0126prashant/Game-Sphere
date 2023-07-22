@@ -23,6 +23,7 @@ const userSchema=mongoose.Schema({
         type:String,
         required:[true,"password is required"]
     },
+    isBlocked: { type: Boolean, default: false },
 },{timestamps:true});
 
 //Register User Model
