@@ -2,25 +2,25 @@
 
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from "./components/Navbar";
 import { Admin } from './pages/Admin/Admin';
-import { faTruckMedical } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 
 
 import AdminNavbar from './pages/Admin/AdminNavbar';
-import ProductList from './pages/Admin/Productlist';
 import AllRoutes from './components/AllRoutes';
+import Adminlogin from './pages/Admin/AdminLogin';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+    let toggle = localStorage.getItem("isAdminLoggedIn")=="true"
   return (
     <div className="App">
-      <Navbar/>
-      <Admin/>
-      {/* {isAdminLoggedIn ? <Admin /> : null} */}
+      {toggle ? <AdminNavbar /> : <Navbar />}
       <AllRoutes />
+      <ToastContainer />
     </div>
   );
 }

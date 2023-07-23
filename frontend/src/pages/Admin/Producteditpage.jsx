@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate  } from 'react-router-dom';
 import axios from 'axios';
-import { FormControl, FormLabel, Input, Textarea, Button, Box, Heading } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Textarea, Button, Box, Heading,  } from '@chakra-ui/react';
+import {URL} from "./baseUrl"
+import { toast } from 'react-toastify';
 
 const EditProduct = () => {
   const navigate  = useNavigate();
@@ -9,7 +11,7 @@ const EditProduct = () => {
   const [productData, setProductData] = useState([]);
 
   useEffect(()=>{
-    axios.get("http://localhost:8080/admin/data")
+    axios.get(`${URL}/admin/data`)
     .then((res)=>{
      res.data.forEach((ele)=>{
         if(ele._id == productId){
@@ -33,12 +35,17 @@ const EditProduct = () => {
     const { name, value } = e.target;
     setProductData((prevData) => ({ ...prevData,[name]:value}));
   };
-
+  const toastOptions = {
+    position: "top-center", 
+    autoClose: 2000,
+  };
   const handleSubmit = () => {
     // console.log(productData); 
-    axios.patch(`http://localhost:8080/admin/updatedata/${productId}`, productData)
+    // console.log(URL)
+    axios.patch(`${URL}/admin/updatedata/${productId}`, productData)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
+      toast.success("Product Edited Sucessfully",toastOptions); 
       navigate('/adminlistproduct');
     })
     .catch((error) => {

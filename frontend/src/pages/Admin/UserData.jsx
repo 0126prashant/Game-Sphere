@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
-
+import {URL} from "./baseUrl"
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +9,7 @@ console.log(users)
 
   // http://localhost:3000/
   const displayData = ()=>{
-    fetch('http://localhost:8080/admin/userlist')
+    fetch(`${URL}/admin/userlist`)
       .then((response) => response.json())
       .then((data) => {
         setUsers(data)
@@ -20,17 +20,14 @@ console.log(users)
 useEffect(()=>{
     displayData()
 },[])
-const handleBlockToggle = (id) => {
+
+  const handleBlockToggle = (id) => {
     setUsers((prevUsers) =>
-      prevUsers.map((user) =>{
-        console.log(user)
-          user._id === id ? { ...user, isBlocked: !user.isBlocked } : user
-      }
-      
+      prevUsers.map((user) =>
+        user._id === id ? { ...user, isBlocked: !user.isBlocked } : user
       )
     );
   };
-
   return (
     <Box width="600px" margin="auto" mt="100px" padding="20px" borderWidth="1px" borderRadius="md">
       <Table>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Box, FormControl, FormLabel, Input, Button, Heading } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import {URL} from "./baseUrl"
+import { toast } from 'react-toastify';
 
 const AddData = () => {
   const navigate = useNavigate();
@@ -18,10 +20,15 @@ const AddData = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  const toastOptions = {
+    position: "top-center", 
+    autoClose: 1000, 
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/admin/addProduct", {
+      const response = await fetch(`${URL}/admin/addProduct`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,10 +37,12 @@ const AddData = () => {
       });
       const data = await response.json();
       // console.log('Product added:', data);
+      toast.success("Product Added", toastOptions);
       navigate("/adminlistproduct")
 
     } catch (error) {
       console.error('Error adding product:', error);
+      toast.error("Error adding product", toastOptions);
     }
   };
 

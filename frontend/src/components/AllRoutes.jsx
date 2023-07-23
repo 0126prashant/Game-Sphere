@@ -11,6 +11,7 @@ import EditProduct from "../pages/Admin/Producteditpage";
 import AddData from "../pages/Admin/AddData";
 import Adminlogin from "../pages/Admin/AdminLogin";
 import UserList from "../pages/Admin/UserData";
+import { Admin } from "../pages/Admin/Admin";
 {/* <AdminNavbar/>
     <ProductList/>
     <EditProduct/> */}
@@ -30,6 +31,7 @@ const AllRoutes = () => {
         <Route path="/adminlogin" element={<Adminlogin/>}/>
         <Route path="/userlist" element={<UserList/>}/>
         <Route path="/cart" element={<CartPage/>}/>
+        {/* <Route path="/admin" element={<Admin/>}/> */}
 
     </Routes>
   )
