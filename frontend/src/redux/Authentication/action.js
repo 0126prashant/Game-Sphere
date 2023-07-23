@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FAILURE_LOGIN, REQUEST_LOGIN, SUCCESS_LOGIN } from "./actionType";
+import { FAILURE_LOGIN, REQUEST_LOGIN, SUCCESS_LOGIN,LOGOUT } from "./actionType";
 
 export const loginality=(user)=>(dispatch)=>{
     
@@ -15,3 +15,7 @@ export const loginality=(user)=>(dispatch)=>{
         dispatch({type:FAILURE_LOGIN,payload:error})
       })   
 }
+
+export const logout = () => (dispatch) => {
+    dispatch({ type: LOGOUT });
+  };
