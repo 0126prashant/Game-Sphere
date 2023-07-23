@@ -11,11 +11,11 @@ const userRoute = require("./routes/user.routes");
 require("dotenv").config();
 
 const app=express();
-
+app.use(cors()); 
 
 // app.use(cors());   install later
 
-app.use(cors()); 
+
 app.use(express.json());
 app.use("/user",userRoute);
 

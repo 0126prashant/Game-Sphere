@@ -3,7 +3,7 @@ import { productReducer } from './Products/productReducer'
 import thunk from 'redux-thunk';
 
 const rootReducer=combineReducers({
-    productReducer
+    productReducer,
 })
 
 const store=legacy_createStore(rootReducer,applyMiddleware(thunk));
