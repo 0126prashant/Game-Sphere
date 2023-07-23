@@ -2,11 +2,158 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser,faLock,faMobile,faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle,faFacebookF,faTwitter} from "@fortawesome/free-brands-svg-icons";
 import logo_register from "../utilites/img/logo_register.svg";
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 import styled from "styled-components";
+import { useEffect, useReducer} from 'react';
+import { registerUser } from '../redux/RegisterUser/action';
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
+import Swal from "sweetalert2";
+
+
+
+const initialState={
+    name:"",
+    email:"",
+    mobile_No:"",
+    password:"",
+}
+
+const reducer=(state,{type,payload})=>{
+
+    switch(type){
+        case "NAME":{
+            return {...state,name:payload}
+        }
+        case "EMAIL":{
+            return {...state,email:payload}
+        }
+        case "MOBILE":{
+            return {...state,mobile_No:payload}
+        }
+        case "PASSWORD":{
+            return {...state,password:payload}
+        }
+        case "RESET":{
+            return initialState;
+        }
+    }
+}
+
 
 
 const SignUp = () => {
+    const myDispatch=useDispatch();
+    const navigate=useNavigate();
+
+    const {loading,msg,error}=useSelector((store)=>{
+        return {
+            loading:store.registerUReducer.isLoading,
+            msg:store.registerUReducer.msg,
+            error:store.registerUReducer.isError
+        }
+   },shallowEqual);
+
+    const [state,dispatch]=useReducer(reducer,initialState);
+    const {name,email,mobile_No,password}=state;
+
+
+    const handleNavigate=()=>{
+        navigate("/user/login")
+    }
+
+
+      const RegisterAlert=(msg)=>{
+
+        if(msg==="Please fill all the required fields"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${msg} !`
+              })
+        }   
+       else if(msg==="Please check Mobile Number"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Please check Mobile Number!'
+              })
+    
+            
+        }else if(msg==="Password should contain One Uppercase, One Special Character, One Number and length must be greater than Eight"){
+    
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${msg} !`
+              })
+           
+    
+        }else if(msg==="User is already registered with us, Please Login...!"){
+          
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'info',
+                title: 'Oops...',
+                text: `${msg}`
+              })
+    
+        }
+    
+        else if(msg==="Registration Successfull !, Please Login..."){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 1800,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: 'Registration Successfull !, Please Login...'
+              })
+    
+              setTimeout(()=>{
+                navigate("/user/login")
+              },2000)
+             
+        }
+    }
+
+   
+
+const handleRegister=(e)=>{
+  e.preventDefault();
+  const obj={name,email,mobile_No,password}
+  myDispatch(registerUser(obj));
+}
+
+useEffect(()=>{
+  RegisterAlert(msg)
+},[msg])
+
   return (
     <DIV>
        <div className="container">
@@ -14,31 +161,47 @@ const SignUp = () => {
         <div className="signIn-signUp">
          
 
-        <form action="" className="sign-up-form">
+        <form action="" className="sign-up-form" >
            
            <h2 className="title">Sign Up</h2>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faUser}/>
-            <input type="text" placeholder='Name'/>
+            <input type="text" 
+                   placeholder='Name' 
+                   value={name}
+                   onChange={(e)=>dispatch({type:"NAME",payload:e.target.value})}
+            />
            </div>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faEnvelope}/>
-            <input type="email" placeholder='Email'/>
+            <input type="email" 
+                   placeholder='Email'
+                   value={email}
+                   onChange={(e)=>dispatch({type:"EMAIL",payload:e.target.value})}
+            />
            </div>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faMobile}/>
-            <input type="number" placeholder='Mobile Number'/>
+            <input type="text" 
+                   placeholder='Mobile Number' 
+                   value={mobile_No}
+                   onChange={(e)=>dispatch({type:"MOBILE",payload:e.target.value})}
+            />
            </div>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faLock}/>
-            <input type="password" placeholder='Password'/>
+            <input type="password" 
+                   placeholder='Password' 
+                   value={password}
+                   onChange={(e)=>dispatch({type:"PASSWORD",payload:e.target.value})}
+                   />
            </div>
 
-          <input type="submit" value="Sign UP" className='btn'/>
+          <input type="submit" value="Sign UP" className='btn' onClick={handleRegister}/>
 
           <p className='social-text'>Or Sign Up with Social Media</p>
 
@@ -65,7 +228,7 @@ const SignUp = () => {
        <div className='content'>
        <h3> One of us ?</h3>
        <p>Log in to save your game progress and pick up where you left off, whether you're on your PC, tablet, or mobile phone!</p>
-        <button className='btn transparent' id="signUpBtn">Login</button>
+        <button onClick={handleNavigate} className='btn transparent' id="signUpBtn">Login</button>
        </div>
        <img className="image" src={logo_register} alt="logo_login"/>
        </div> 

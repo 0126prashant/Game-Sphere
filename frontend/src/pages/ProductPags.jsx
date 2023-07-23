@@ -3,11 +3,11 @@ import { Sidebar } from "../components/ProdSidebar";
 import styled from "styled-components";
 import { ProductList } from "../components/ProductList";
 
+
 const ProductPage=()=>{
 
     return(
  <DIV>
-
   <div className="main">
    <Sidebar/> 
     <ProductList/>
@@ -17,13 +17,12 @@ const ProductPage=()=>{
 }
 
 const DIV=styled.div`
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
  width: 100%;
- margin: auto;
- margin: 0;
- padding: 0;
+
   .main{
         display: flex;
-        width: 100%;
+        width: 90%;
         margin: auto;
     }
 `

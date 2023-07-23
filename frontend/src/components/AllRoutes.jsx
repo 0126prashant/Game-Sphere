@@ -4,6 +4,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/Register";
 import ProductPage from "../pages/ProductPags";
 import { Homepage } from "../pages/Homepage";
+import { CartPage } from "../pages/Cart";
 import AdminNavbar from "../pages/Admin/AdminNavbar";
 import ProductList from "../pages/Admin/Productlist";
 import EditProduct from "../pages/Admin/Producteditpage";
@@ -28,7 +29,8 @@ const AllRoutes = () => {
         <Route path="/addData" element={<AddData/>}/>
         <Route path="/adminlogin" element={<Adminlogin/>}/>
         <Route path="/userlist" element={<UserList/>}/>
-        
+        <Route path="/cart" element={<CartPage/>}/>
+
     </Routes>
   )
 }
