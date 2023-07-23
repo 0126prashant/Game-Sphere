@@ -21,7 +21,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ToggleButton from "./Toggle";
 import { useNavigate } from "react-router-dom";
-import { loginality } from "../redux/Authentication/action";
+import { loginality,logout } from "../redux/Authentication/action";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,9 +43,9 @@ const Navbar = () => {
   );
 
   const dispatch = useDispatch();
-  // const handleLogout = () => {
-  //   dispatch(loginality({}));
-  // };
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     if (token) {

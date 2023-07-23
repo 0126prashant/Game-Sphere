@@ -1,4 +1,4 @@
-import { FAILURE_LOGIN, REQUEST_LOGIN, SUCCESS_LOGIN } from "./actionType"
+import { FAILURE_LOGIN, REQUEST_LOGIN, SUCCESS_LOGIN ,LOGOUT} from "./actionType"
 
 
 const initialState={
@@ -20,6 +20,9 @@ const initialState={
       }
       case FAILURE_LOGIN:{
         return {...state,isLoading:false, isError:payload}
+      }
+      case LOGOUT: {
+        return { ...state, isAuth: false, token: "" };
       }
         default:{
             return state;
