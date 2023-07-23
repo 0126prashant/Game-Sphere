@@ -21,6 +21,8 @@ app.use("/user",userRoute);
 
 
 app.use("/admins",adminRouter)
+
+
 app.use(productRoute);
 
 app.listen(process.env.port,async()=>{

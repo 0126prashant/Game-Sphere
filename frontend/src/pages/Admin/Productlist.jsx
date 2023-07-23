@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { SimpleGrid } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://63f45eca3f99f5855dae29dc.mockapi.io/products')
       .then((response) => response.json())
       .then((data) => {
         setProducts(data)
-        console.log(data)
+        // console.log(data)
       })
 
       .catch((error) => console.error(error));
   }, []);
 
   const handleEdit = (product) => {
-    console.log(`Edit product with ID: ${product.id}`);
+    // console.log(`edit ${product.id}`);
+    navigate(`/editprd/${product.id}`);
   };
 
   const handleDelete = (product) => {
-    console.log(`Deleteid ${product.id}`);
+    // console.log(`Deleteid ${product.id}`);
     setProducts(products.filter((p) => p.id !== product.id));
   };
 

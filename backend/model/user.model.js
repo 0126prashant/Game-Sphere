@@ -11,13 +11,21 @@ const userSchema=mongoose.Schema({
         unique:true
     },
     mobile_No:{
-        type:Number,
+        type:String,
         required:[true,"Mobile No. is required"]
     },
     password:{
         type:String,
         required:[true,"password is required"]
+    },
+    confirm_password:{
+        type:String,
+        required:[true,"password is required"]
+    },
+    isBlocked: { type: Boolean, default: false },
+
     }
+
 },{timestamps:true});
 
 //Register User Model
