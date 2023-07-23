@@ -20,7 +20,9 @@ app.use(express.json());
 app.use("/user",userRoute);
 
 
-app.use("/admin",adminRouter)
+app.use("/admins",adminRouter)
+
+
 app.use(productRoute);
 
 app.listen(process.env.port,async()=>{
