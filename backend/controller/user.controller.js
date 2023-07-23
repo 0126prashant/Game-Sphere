@@ -5,11 +5,12 @@ require("dotenv").config();
 
 //Register user
 const registerUser=async(req,res)=>{
+    console.log(req.body)
     const {name,email,mobile_No,password}=req.body;
     const userAvailable=await userModel.findOne({$or:[{email},{mobile_No}]});
 
     if(userAvailable){
-     res.status(200).json({msg:"User is already registered"})
+     res.status(200).json({msg:"User is already registered with us, Please Login...!"})
     }else{
         //hashing the password and storing it into database
      bcrypt.hash(password, 3, async(err, hash)=>{
@@ -34,12 +35,12 @@ const loginUser=async(req,res)=>{
             let userAvailable=await userModel.findOne({email});
             
             if(!userAvailable){
-                res.status(404).json({msg:"User not found, Please register first"})
+                res.status(200).json({msg:"User not found, Please register first"})
             }else{
                 bcrypt.compare(password, userAvailable.password, async(err, result)=>{
                     if(result){
                         let token=jwt.sign({userName:userAvailable.name,userId:userAvailable._id},process.env.secretKey,{expiresIn:"60m"});
-                        res.status(200).json({msg:"User logged successfully",
+                        res.status(200).json({msg:"User login in successfull",
                         success:true, token,user:userAvailable.name})
                     }else if(!result){
                         res.status(201).json({msg:"password is incorrect"})

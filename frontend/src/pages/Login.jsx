@@ -2,25 +2,106 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faUser,faLock} from "@fortawesome/free-solid-svg-icons";
 import {faGoogle,faFacebookF,faTwitter} from "@fortawesome/free-brands-svg-icons";
 import logo_login from "../utilites/img/logo_login.svg";
-import {Link} from "react-router-dom"
+import {Link,useNavigate} from "react-router-dom"
 import styled from "styled-components";
-
 import Swal from "sweetalert2";
+import { useEffect, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { loginality } from '../redux/Authentication/action';
+
+
 
 const Login = () => {
 
+    const {loading,msg,error}=useSelector((store)=>{
+        return {
+            loading:store.authReducer.loading,
+            msg:store.authReducer.msg,
+            error:store.authReducer.isError,
+            token:store.authReducer.token
+        }
+      },shallowEqual);
+
+
+    const [email,setEmail]=useState("");
+    const [password,setPassword]=useState("");
+    const [count,setCount]=useState(0);
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
+
+    const LoginAlert=(msg)=>{
+       
+
+        if(msg==="Please fill the all the required fields"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${msg} !`
+              })
+        }   
+
+        else if(msg==="password is incorrect"){
+           
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${msg} !`
+              })
+           
+    
+        }
+    
+        else if(msg==="User login in successfull"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: `${msg}`
+              })
+              setTimeout(()=>{
+                navigate("/user/signup")
+              },2000)   
+        }
+    }
+
+
+
+    //Panel button
+    const handleNavigate=()=>{
+        navigate("/user/signUp")
+    }
+
+    
+
 
     const handleLogin=(e)=>{
-        e.preventDefault();
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            text: 'Login successfull',
-            showConfirmButton: false,
-            timer: 2000,
-        
-          })
+      e.preventDefault();
+      const obj={email,password};
+      dispatch(loginality(obj));
     }
+
+    useEffect(()=>{
+        LoginAlert(msg)
+    },[msg])
 
 
 
@@ -34,21 +115,32 @@ const Login = () => {
        <div className="forms-container">
         <div className="signIn-signUp">
          
-         <form action="" className="sign-in-form">
+         <form action="" className="sign-in-form" >
            
            <h2 className="title">Sign In</h2>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faUser}/>
-            <input type="email" placeholder='Email'/>
+            <input type="email" 
+                   placeholder='Email'
+                   value={email}
+                   onChange={(e)=>setEmail(e.target.value)}
+            />
            </div>
 
            <div className="input-field">
             <FontAwesomeIcon className="faUser" icon={faLock}/>
-            <input type="password" placeholder='Password'/>
+            <input type="password" 
+                   placeholder='Password'
+                   value={password}
+                   onChange={(e)=>setPassword(e.target.value)}
+                   />
            </div>
 
-          <input onClick={handleLogin} type="submit" value="Login" className='btn'/>
+          <input onClick={handleLogin} 
+                  type="submit" 
+                  value="Login" 
+                 className='btn'/>
 
           <p className='social-text'>Or Sign in with Social Media</p>
 
@@ -76,15 +168,14 @@ const Login = () => {
 <h3> New User ?</h3>
 <p>Sign up now to personalize your gaming profile, unlock custom skins and avatars, and make your mark in the gaming world.</p>
 
- <button  className='btn transparent' id="signIpBtn">Sign Up</button>
+ <button  onClick={handleNavigate} className='btn transparent' id="signIpBtn">Sign Up</button>
 
 </div>
 <img className="image" src={logo_login} alt="logo_login"/>
 </div>
 
 </div>
-
-       </div>
+ </div>
     </DIV>
   )
 }
