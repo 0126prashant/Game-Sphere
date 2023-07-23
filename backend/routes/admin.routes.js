@@ -54,11 +54,9 @@ adminRouter.patch("/blockuser/:id", async (req, res) => {
 
 // --------------------If admin wants to update the data----------->>>>
 adminRouter.patch("/updatedata/:id",async(req,res)=>{
-  // console.log("hello")
-  // console.log(req.params.id)
+
   try {
     const updatedPost = await productModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-    // console.log(updatedPost)
     res.status(200).send(updatedPost)
     
   } catch (error) {

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Box, Button, FormControl, FormLabel, Input, Heading } from '@chakra-ui/react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {URL} from "./baseUrl";
+import { toast } from 'react-toastify';
 
 const Adminlogin = () => {
   const navigate = useNavigate()
@@ -15,21 +17,32 @@ const Adminlogin = () => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleLogin = () => {
-    console.log(formData.email,formData.password);
-    axios.post("http://localhost:8080/admin/login",{
-      email :formData.email,
-      password :formData.password
-    })
-    .then((res)=>{
-      alert("Admin login sucessfull")
-      navigate("/navadmin")
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+  const toastOptions = {
+    position: "top-center", 
+    autoClose: 1000,
   };
 
+  const handleLogin = () => {
+    axios.post(`${URL}/admin/login`, {
+      email: formData.email,
+      password: formData.password,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          toast.success("Welcome Admin", toastOptions);
+          localStorage.setItem("isAdminLoggedIn", true);
+          setTimeout(() => { 
+            navigate("/adminlistproduct");
+            window.location.reload();
+          }, 1000);
+        } else {
+          toast.error("Login failed. Please check your credentials.", toastOptions);
+        }
+      })
+      .catch((err) => {
+        toast.error("Login failed. Please check your credentials.", toastOptions);
+      });
+  };
   return (
     <Box
       width="400px"

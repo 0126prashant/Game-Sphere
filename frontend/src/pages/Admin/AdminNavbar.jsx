@@ -5,16 +5,27 @@ import { FaBars, FaTimes ,Flex} from "react-icons/fa";
 import "./AdminStyles/Adminnavbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import adminlogo from "../../utilites/img/adminlogo.png"
+import { toast } from 'react-toastify';
+
+
 const AdminNavbar = () => {
   const navRef = useRef();
   const navigate = useNavigate();
   const showNavbar = () => {
     navRef.current.classList.toggle("kd_responsive_nav");
   };
-
+  const toastOptions = {
+    position: "top-center", 
+    autoClose: 1000, 
+  };
   const handleClick = () => {
-    localStorage.clear();
-    navigate("/");
+    toast.success("Admin has been logged out", toastOptions);
+    localStorage.setItem("isAdminLoggedIn",false)
+    setTimeout(() => { 
+      navigate("/");
+      window.location.reload();
+    }, 1000);
+      // localStorage.removeItem("isAdminLoggedIn");
   };
   return (
     <header>
