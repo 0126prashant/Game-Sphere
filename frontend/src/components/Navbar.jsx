@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { navArr } from "./constant";
 import image1 from "../utilites/img/Game.png";
 import {
@@ -20,12 +21,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import ToggleButton from "./Toggle";
 import { useNavigate } from "react-router-dom";
+import { loginality } from "../redux/Authentication/action";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toggleNav, setToggleNav] = useState(navArr);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
   const handleMenuOpen = () => {
     setIsMenuOpen(true);
   };
@@ -33,10 +34,28 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setIsMenuOpen(false);
   };
+  const handleAdminClick = () => {
+    navigate("/adminlogin");
+  };
+  const { isLoading, isError, isAuth, token } = useSelector(
+    (store) => store.authReducer,
+    shallowEqual
+  );
 
-  const handleAdminClick = ()=>{
-    navigate("/adminlogin")
-  }
+  const dispatch = useDispatch();
+  // const handleLogout = () => {
+  //   dispatch(loginality({}));
+  // };
+
+  useEffect(() => {
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, [token]);
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <>
@@ -128,20 +147,40 @@ const Navbar = () => {
         </Flex>
 
         <Flex align="center" flex={1} justify="flex-end">
-          {/* Sign In Button */}
-          <Box>
-            <Button
-              variant="solid"
-              colorScheme="orange"
-              color="white"
-              size="sm"
-              margin="10px"
-              padding="20px"
-            >
-              SIGN IN
-            </Button>
-          </Box>
-          {/* Admin added this button  */}
+          {isAuth ? (
+            <Box>
+              <Link href="/">
+                <Button
+                  variant="solid"
+                  colorScheme="orange"
+                  color="white"
+                  size="sm"
+                  margin="10px"
+                  padding="20px"
+                  isLoading={isLoading}
+                  onClick={handleLogout}
+                >
+                  LOG OUT
+                </Button>
+              </Link>
+            </Box>
+          ) : (
+            <Box>
+              <Link href="/user/login">
+                <Button
+                  variant="solid"
+                  colorScheme="orange"
+                  color="white"
+                  size="sm"
+                  margin="10px"
+                  padding="20px"
+                  isLoading={isLoading}
+                >
+                  SIGN IN
+                </Button>
+              </Link>
+            </Box>
+          )}
           <Box>
             <Button
               variant="solid"
@@ -155,7 +194,6 @@ const Navbar = () => {
               Admin
             </Button>
           </Box>
-          {/* Cart Icon */}
           <Box>
             <Link href="/cart">
               <IconButton
