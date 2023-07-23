@@ -8,6 +8,8 @@ import AdminNavbar from "../pages/Admin/AdminNavbar";
 import ProductList from "../pages/Admin/Productlist";
 import EditProduct from "../pages/Admin/Producteditpage";
 import AddData from "../pages/Admin/AddData";
+import Adminlogin from "../pages/Admin/AdminLogin";
+import UserList from "../pages/Admin/UserData";
 {/* <AdminNavbar/>
     <ProductList/>
     <EditProduct/> */}
@@ -24,6 +26,8 @@ const AllRoutes = () => {
         <Route path="/adminlistproduct" element={<ProductList/>}/>
         <Route path="/editprd/:productId" element={<EditProduct/>}/>
         <Route path="/addData" element={<AddData/>}/>
+        <Route path="/adminlogin" element={<Adminlogin/>}/>
+        <Route path="/userlist" element={<UserList/>}/>
         
     </Routes>
   )

@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [toggleNav, setToggleNav] = useState(navArr);
+  const navigate = useNavigate()
 
   const handleMenuOpen = () => {
     setIsMenuOpen(true);
@@ -33,6 +34,9 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const handleAdminClick = ()=>{
+    navigate("/adminlogin")
+  }
 
   return (
     <>
@@ -135,6 +139,20 @@ const Navbar = () => {
               padding="20px"
             >
               SIGN IN
+            </Button>
+          </Box>
+          {/* Admin added this button  */}
+          <Box>
+            <Button
+              variant="solid"
+              colorScheme="orange"
+              color="white"
+              size="sm"
+              margin="10px"
+              padding="20px"
+              onClick={handleAdminClick}
+            >
+              Admin
             </Button>
           </Box>
           {/* Cart Icon */}

@@ -14,7 +14,7 @@ const AdminNavbar = () => {
 
   const handleClick = () => {
     localStorage.clear();
-    navigate("/adminsignin");
+    navigate("/");
   };
   return (
     <header>
@@ -46,7 +46,7 @@ const AdminNavbar = () => {
         </li> */}
         <button className="kd-logout" onClick={handleClick}>
           Log-out
-        </button>
+                 </button>
         <button className="kd-nav-btn kd-nav-close-btn" onClick={showNavbar}>
           <FaTimes />
         </button>

@@ -10,7 +10,7 @@ const AddData = () => {
     developer: "",
     publisher: "",
     price: "",
-    img_url:"",
+    img_url:"https://media.wired.com/photos/639bf35a24c352e627eccc43/16:9/w_2400,h_1350,c_limit/Ragnaro%CC%88k-culture-ar1qdh.jpg",
   });
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ const AddData = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://63f45eca3f99f5855dae29dc.mockapi.io/product", {
+      const response = await fetch("http://localhost:8080/admin/addProduct", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
