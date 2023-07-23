@@ -25,8 +25,7 @@ const userSchema=mongoose.Schema({
     isBlocked: { type: Boolean, default: false },
 
     }
-
-},{timestamps:true});
+,{timestamps:true});
 
 //Register User Model
 const userModel=mongoose.model("user",userSchema);

@@ -6,28 +6,45 @@ import { useNavigate } from 'react-router-dom';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch('https://63f45eca3f99f5855dae29dc.mockapi.io/products')
+  // http://localhost:3000/
+  const displayData = ()=>{
+    fetch('http://localhost:8080/admin/data')
       .then((response) => response.json())
       .then((data) => {
         setProducts(data)
         // console.log(data)
       })
-
       .catch((error) => console.error(error));
+  }
+  useEffect(() => {
+    displayData()
   }, []);
-
+// updatedata
   const handleEdit = (product) => {
-    // console.log(`edit ${product.id}`);
-    navigate(`/editprd/${product.id}`);
+    navigate(`/editprd/${product._id}`);
   };
 
-  const handleDelete = (product) => {
-    // console.log(`Deleteid ${product.id}`);
-    setProducts(products.filter((p) => p.id !== product.id));
+  const handleDelete = async (product) => {
+    // console.log(product._id)
+    try {
+      const response = await fetch(`http://localhost:8080/admin/delete/${product._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        setProducts(products.filter((p) => p.id !== product._id));
+        alert("Succsully deleted")
+          displayData()
+      } else {
+        console.error('Failed to delete product:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
-
   return (
     <SimpleGrid columns={[1, 2, 3]} spacing="4">
       {products.map((product) => (

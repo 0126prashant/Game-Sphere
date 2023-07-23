@@ -1,35 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate  } from 'react-router-dom';
+import axios from 'axios';
 import { FormControl, FormLabel, Input, Textarea, Button, Box, Heading } from '@chakra-ui/react';
 
 const EditProduct = () => {
   const navigate  = useNavigate();
   const { productId } = useParams();
+  const [productData, setProductData] = useState([]);
 
-  const initialProductData = {
-    img_url: 'img_url',
-    date: '2023-07-21',
-    developer: 'Example Developer',
-    publisher: 'Example Publisher',
-    price: '19.99',
-    name: 'Example Product',
-  };
+  useEffect(()=>{
+    axios.get("http://localhost:8080/admin/data")
+    .then((res)=>{
+     res.data.forEach((ele)=>{
+        if(ele._id == productId){
 
-  const [productData, setProductData] = useState(initialProductData);
-
+          setProductData({
+            img_url: ele.img_url,
+            developer: ele.developer,
+            publisher: ele.publisher,
+            price: ele.price,
+            name: ele.name,
+          });
+        }
+     })
+  
+    })
+    .catch((err)=>{
+     console.log(err)
+    })
+ },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData((prevData) => ({ ...prevData, [name]: value }));
+    setProductData((prevData) => ({ ...prevData,[name]:value}));
   };
 
   const handleSubmit = () => {
-    console.log('Updated Product', productData);
-    navigate('/adminlistproduct');
+    // console.log(productData); 
+    axios.patch(`http://localhost:8080/admin/updatedata/${productId}`, productData)
+    .then((res) => {
+      console.log(res.data);
+      navigate('/adminlistproduct');
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    // navigate('/adminlistproduct');
   };
 
   return (
     <Box p="4">
       <Heading size="lg" mb="4">Edit Product</Heading>
+      <FormControl mb="4">
+        <FormLabel>Name</FormLabel>
+        <Input name="name" value={productData.name} onChange={handleChange} />
+      </FormControl>
       <FormControl mb="4">
         <FormLabel>Image URL</FormLabel>
         <Input name="img_url" value={productData.img_url} onChange={handleChange} />
@@ -50,10 +74,7 @@ const EditProduct = () => {
         <FormLabel>Price</FormLabel>
         <Input name="price" value={productData.price} onChange={handleChange} />
       </FormControl>
-      <FormControl mb="4">
-        <FormLabel>Name</FormLabel>
-        <Input name="name" value={productData.name} onChange={handleChange} />
-      </FormControl>
+      
       <Button colorScheme="blue" onClick={handleSubmit}>Update Product</Button>
     </Box>
   );
