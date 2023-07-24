@@ -1,9 +1,9 @@
 
 import {styled} from "styled-components"
 import { Link, useNavigate } from "react-router-dom";
-import mcLogo from "./images/mc.png";
-import vcLogo from "./images/vi.png";
-import pcLogo from "./images/pp.png";
+// import mcLogo from "./images/mc.png";
+// import vcLogo from "./images/vi.png";
+// import pcLogo from "./images/pp.png";
 import { useState } from "react";
 
 
@@ -91,11 +91,11 @@ const [year,setYear]=useState("");
                         <option value="2030">2030</option>
                       </select>
                 </div>
-                <div class="cards">
+                {/* <div class="cards">
                     <img src={vcLogo} alt="" />
                     <img src={mcLogo} alt="" />
                     <img src={pcLogo} alt="" />
-                </div>
+                </div> */}
             </div>    
         </div>
         <Link to="/product/confirmation/" >Confirm</Link>
