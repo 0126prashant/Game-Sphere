@@ -37,10 +37,21 @@ const Navbar = () => {
   const handleAdminClick = () => {
     navigate("/adminlogin");
   };
-  const { isLoading, isError, isAuth, token } = useSelector(
-    (store) => store.authReducer,
-    shallowEqual
-  );
+  // const { isLoading, isError, isAuth, token } = useSelector(
+  //   (store) => store.authReducer,
+  //   shallowEqual
+  // );
+
+
+  
+  let {isAuth,isLoading,isError,token}=useSelector((store)=>{
+    return {
+      isAuth:store.authReducer.isAuth,
+      isLoading:store.authReducer.isLoading,
+      isError:store.authReducer.isError,
+      token:store.authReducer.token  
+    }
+},shallowEqual)
 
   const dispatch = useDispatch();
   const handleLogout = () => {
