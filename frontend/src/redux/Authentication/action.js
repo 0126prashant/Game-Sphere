@@ -5,7 +5,7 @@ export const loginality=(user)=>(dispatch)=>{
     
     dispatch({type:REQUEST_LOGIN});
 
-    axios.post("http://localhost:8080/user/signin",user)
+    axios.post("https://zany-cyan-bighorn-sheep-tutu.cyclic.app/user/signin",user)
     .then((res)=>{
         dispatch({type:SUCCESS_LOGIN,payload:{msg:res.data.msg,token:res.data.token}})
     })
