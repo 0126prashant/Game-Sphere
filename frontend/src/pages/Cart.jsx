@@ -95,7 +95,7 @@ function incButton(id){
           <div><h2>Discount: 0%</h2></div> 
          <div> <h2>Dilivery Charge: Free</h2></div>       
         <div><h2>Total Amout:{Total}</h2></div> 
-        <div><Link to={"/checkout"}><button className="checkout">Place your order</button></Link></div>
+        <div><Link to={"/product/checkout"}><button className="checkout">Place your order</button></Link></div>
     </div>
 </div>
 </div>

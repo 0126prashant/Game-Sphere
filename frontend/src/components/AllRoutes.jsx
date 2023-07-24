@@ -12,6 +12,9 @@ import AddData from "../pages/Admin/AddData";
 import Adminlogin from "../pages/Admin/AdminLogin";
 import UserList from "../pages/Admin/UserData";
 import { Admin } from "../pages/Admin/Admin";
+import Checkout from "../pages/Checkout";
+import Payment from "../pages/Payment";
+import Confirmation from "../pages/Confirmation";
 {/* <AdminNavbar/>
     <ProductList/>
     <EditProduct/> */}
@@ -31,6 +34,9 @@ const AllRoutes = () => {
         <Route path="/adminlogin" element={<Adminlogin/>}/>
         <Route path="/userlist" element={<UserList/>}/>
         <Route path="/cart" element={<CartPage/>}/>
+        <Route path="/product/checkout" element={<Checkout/>}/>
+        <Route path="/product/payment" element={<Payment/>}/>
+        <Route path="/product/confirmation" element={<Confirmation/>}/>
         {/* <Route path="/admin" element={<Admin/>}/> */}
 
     </Routes>
