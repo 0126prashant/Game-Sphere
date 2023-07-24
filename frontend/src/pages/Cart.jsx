@@ -10,7 +10,7 @@ const [cart,setCart]=useState([]);
 const [Total,setTotal]=useState(0);
 
 function getProduct(){
-    axios.get(`http://localhost:8080/cart`).then((res)=>{
+    axios.get(`https://zany-cyan-bighorn-sheep-tutu.cyclic.app/cart`).then((res)=>{
         console.log(res);
 setCart(res.data.product);
 }).catch((err)=>{
@@ -35,7 +35,7 @@ setTotal(num);
 
 function delB(_id){
     console.log(_id)
-axios.delete(`http://localhost:8080/cart/remove/${_id}`).then((res)=>{
+axios.delete(`https://zany-cyan-bighorn-sheep-tutu.cyclic.app/cart/remove/${_id}`).then((res)=>{
    console.log(res); 
 }).catch((err)=>{
    console.log(err); 
