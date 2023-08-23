@@ -185,7 +185,6 @@ const Navbar = () => {
                   size="sm"
                   margin="10px"
                   padding="20px"
-                  isLoading={isLoading}
                 >
                   SIGN IN
                 </Button>

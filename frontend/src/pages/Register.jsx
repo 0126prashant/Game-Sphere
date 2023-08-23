@@ -65,97 +65,102 @@ const SignUp = () => {
     }
 
 
-      const RegisterAlert=(msg)=>{
+    //   const RegisterAlert=(msg)=>{
 
-        if(msg==="Please fill all the required fields"){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: `${msg} !`
-              })
-        }   
-       else if(msg==="Please check Mobile Number"){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'Please check Mobile Number!'
-              })
-    
-            
-        }else if(msg==="Password should contain One Uppercase, One Special Character, One Number and length must be greater than Eight"){
-    
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: `${msg} !`
-              })
-           
-    
-        }else if(msg==="User is already registered with us, Please Login...!"){
-          
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'info',
-                title: 'Oops...',
-                text: `${msg}`
-              })
-    
-        }
-    
-        else if(msg==="Registration Successfull !, Please Login..."){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 1800,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-              })
-              Toast.fire({
-                icon: 'success',
-                title: 'Registration Successfull !, Please Login...'
-              })
-    
-              setTimeout(()=>{
-                navigate("/user/login")
-              },2000)
-             
-        }
-    }
+       
+    // }
 
    
 
 const handleRegister=(e)=>{
+    console.log("okc")
   e.preventDefault();
   const obj={name,email,mobile_No,password}
-  myDispatch(registerUser(obj));
+  myDispatch(registerUser(obj)).then((data)=>{
+
+    if(data.msg==="Please fill all the required fields"){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            confirmButtonColor: 'dodgerblue',
+          })
+          Toast.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: `${data.msg} !`
+          })
+    }   
+   else if(data.msg==="Please check Mobile Number"){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            confirmButtonColor: 'dodgerblue',
+          })
+          Toast.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Please check Mobile Number!'
+          })
+
+        
+    }else if(data.msg==="Password should contain One Uppercase, One Special Character, One Number and length must be greater than Eight"){
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            confirmButtonColor: 'dodgerblue',
+          })
+          Toast.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: `${data.msg} !`
+          })
+       
+
+    }else if(data.msg==="User is already registered with us, Please Login...!"){
+      
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            confirmButtonColor: 'dodgerblue',
+          })
+          Toast.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: `User's Mobile Number or email already registered with us, Please Login...`
+          })
+
+    }
+
+    else if(data.msg==="Registration Successfull !, Please Login..."){
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: 'Registration Successfull !, Please Login...'
+          })
+
+          navigate("/user/login")
+         
+    }
+
+
+
+  })
 }
 
-useEffect(()=>{
-  RegisterAlert(msg)
-},[msg])
+// useEffect(()=>{
+//   RegisterAlert(msg)
+// },[msg])
 
   return (
     <DIV>

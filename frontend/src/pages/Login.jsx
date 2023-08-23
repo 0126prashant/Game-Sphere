@@ -29,63 +29,15 @@ const Login = () => {
     const dispatch=useDispatch();
     const navigate=useNavigate();
 
-    const LoginAlert=(msg)=>{
+    // const LoginAlert=(msg)=>{
        
 
-        if(msg==="Please fill the all the required fields"){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: `${msg} !`
-              })
-        }   
-
-        else if(msg==="password is incorrect"){
-           
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                confirmButtonColor: 'dodgerblue',
-              })
-              Toast.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: `${msg} !`
-              })
-           
-    
-        }
-    
-        else if(msg==="User login in successfull"){
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-              })
-              Toast.fire({
-                icon: 'success',
-                title: `${msg}`
-              })
-              setTimeout(()=>{
-                navigate("/user/signup")
-              },2000)   
-        }
-    }
+       
+    // }
 
 
 
-    //Panel button
+    // Panel button
     const handleNavigate=()=>{
         navigate("/user/signUp")
     }
@@ -96,12 +48,77 @@ const Login = () => {
     const handleLogin=(e)=>{
       e.preventDefault();
       const obj={email,password};
-      dispatch(loginality(obj));
+      dispatch(loginality(obj)).then((data)=>{
+
+        if(data.msg==="Please fill the all the required fields"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${data.msg} !`
+              })
+        }   
+
+       else if(data.msg==="User not found, Please register first"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${data.msg} !`
+              })
+        }   
+
+        else if(data.msg==="password is incorrect"){
+           
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                confirmButtonColor: 'dodgerblue',
+              })
+              Toast.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: `${data.msg} !`
+              })
+           
+    
+        }
+    
+        else if(data.msg==="User login in successfull"){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
+                icon: 'success',
+                title: `${data.msg}`
+              })
+
+              navigate("/products")
+        }
+
+        
+      })
     }
 
-    useEffect(()=>{
-        LoginAlert(msg)
-    },[msg])
+    // useEffect(()=>{
+    //     LoginAlert(data.msg)
+    // },[msg])
 
 
 

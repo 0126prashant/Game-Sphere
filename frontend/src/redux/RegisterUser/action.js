@@ -1,16 +1,30 @@
 import axios from "axios";
 import { REQUEST_REGISTER, SUCCESS_REGISTER,FAILURE_REGISTER } from "./actionType";
 
-export const registerUser=(user)=>(myDispatch)=>{
+export const registerUser=(user)=>async(myDispatch)=>{
+
+    console.log(user)
 
     myDispatch({type:REQUEST_REGISTER});
 
-    return axios.post("https://gamefly.onrender.com/user/signUp",user)
-    .then((res)=>{
-        console.log(res)
-        myDispatch({type:SUCCESS_REGISTER,payload:res.data.msg});
-    })
-    .catch((error)=>{
+
+    try {
+
+        const response=await fetch("https://gamefly.onrender.com/user/signup",{
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify(user)
+
+        })
+        const data=await response.json();
+        console.log(data)
+        return data;
+        myDispatch({type:SUCCESS_REGISTER,payload:data.msg});
+        
+    } catch (error) {
         myDispatch({type:FAILURE_REGISTER,payload:error})
-    })
+    }
+
 }
