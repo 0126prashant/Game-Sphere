@@ -36,6 +36,9 @@ const reducer=(state,{type,payload})=>{
         case "RESET":{
             return initialState;
         }
+        default:{
+            return state;
+        }
     }
 }
 

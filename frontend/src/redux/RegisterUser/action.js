@@ -5,7 +5,7 @@ export const registerUser=(user)=>(myDispatch)=>{
 
     myDispatch({type:REQUEST_REGISTER});
 
-    return axios.post("https://zany-cyan-bighorn-sheep-tutu.cyclic.app/user/signUp",user)
+    return axios.post("https://gamefly.onrender.com/user/signUp",user)
     .then((res)=>{
         console.log(res)
         myDispatch({type:SUCCESS_REGISTER,payload:res.data.msg});

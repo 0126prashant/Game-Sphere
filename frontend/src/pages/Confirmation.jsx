@@ -1,6 +1,7 @@
 
 import {styled} from "styled-components"
-// import tickLogo from "./images/tick.png";
+import tickLogo from "../utilites/img/tick.png";
+
 import { useNavigate } from "react-router-dom";
 const Confirmation = () => {
     const navigate=useNavigate();
@@ -32,7 +33,7 @@ const Confirmation = () => {
             
 
           <div class="thanks">
-           {/* <img src={tickLogo} alt="tickLogo"/> */}
+           <img src={tickLogo} alt="tickLogo"/>
            <h4>Thank You!</h4>
            <p>Your order has been successfully placed</p>
            

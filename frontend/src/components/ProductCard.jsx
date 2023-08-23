@@ -18,7 +18,7 @@ let [ale,setAle]=useState(false)
       price,
       quantity:1
    }
-   axios.post(`https://zany-cyan-bighorn-sheep-tutu.cyclic.app/cart/add`,item).then((res)=>{
+   axios.post(`https://gamefly.onrender.com/cart/add`,item).then((res)=>{
     console.log(res);
     setAle(true);
     setTimeout(()=>{
